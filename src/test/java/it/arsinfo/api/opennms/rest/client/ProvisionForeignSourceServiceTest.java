@@ -26,7 +26,7 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.rest.client;
+package it.arsinfo.api.opennms.rest.client;
 
 import org.junit.After;
 import org.junit.Before;

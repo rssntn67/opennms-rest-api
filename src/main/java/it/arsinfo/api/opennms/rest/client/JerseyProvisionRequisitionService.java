@@ -1,4 +1,4 @@
-package org.opennms.rest.client;
+package it.arsinfo.api.opennms.rest.client;
 
 import javax.ws.rs.core.MultivaluedMap;
 
@@ -14,7 +14,6 @@ import org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredServ
 import org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredServiceCollection;
 import org.opennms.netmgt.provision.persist.requisition.RequisitionNode;
 import org.opennms.netmgt.provision.persist.requisition.RequisitionNodeCollection;
-import org.opennms.rest.client.ProvisionRequisitionService;
 
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 
@@ -89,12 +88,10 @@ public class JerseyProvisionRequisitionService extends JerseyAbstractService imp
 		return buildServicesPath(name, foreignid, inet)+"/"+service;
 	}
 
-	@Override
 	public RequisitionCollection getAll() {
 		return getJerseyClient().get(RequisitionCollection.class, REQUISITIONS_PATH);
 	}
 
-	@Override
 	public Integer count() {
 		return Integer.decode(getJerseyClient().get(REQUISITIONS_COUNT_PATH));
 		/*
@@ -104,176 +101,145 @@ public class JerseyProvisionRequisitionService extends JerseyAbstractService imp
 		*/
 	}
 
-	@Override
 	public RequisitionCollection getAllDeployed() {
 		return getJerseyClient().get(RequisitionCollection.class, REQUISITIONS_DEPLOYED_PATH);
 	}
 
-	@Override
 	public int countDeployed() {
 		return Integer.getInteger(getJerseyClient().get(REQUISITIONS_DEPLOYED_COUNT_PATH));
 	}
 
-	@Override
 	public Requisition get(String name) {
 		return getJerseyClient().get(Requisition.class, buildRequisitionPath(name));
 	}
 
-	@Override
 	public RequisitionNodeCollection getNodes(String name) {
 		return getJerseyClient().get(RequisitionNodeCollection.class, buildNodesPath(name));
 	}
 
-	@Override
 	public RequisitionNode getNode(String foreignid, String name) {
 		return getJerseyClient().get(RequisitionNode.class, buildNodePath(name, foreignid));
 	}
 
-	@Override
 	public RequisitionInterfaceCollection getInterfaces(String foreignid,
 			String name) {
 		return getJerseyClient().get(RequisitionInterfaceCollection.class, buildInterfacesPath(name, foreignid));
 	}
 
-	@Override
 	public RequisitionInterface getInterface(String foreignid, String name,
 			String inet) {
 		return getJerseyClient().get(RequisitionInterface.class, buildInterfacePath(name, foreignid,inet));
 	}
 
-	@Override
 	public RequisitionMonitoredServiceCollection getServices(String foreignid,
 			String name, String inet) {
 		return getJerseyClient().get(RequisitionMonitoredServiceCollection.class, buildServicesPath(name, foreignid, inet));
 	}
 
-	@Override
 	public RequisitionMonitoredService getService(String foreignid,
 			String name, String inet, String service) {
 		return getJerseyClient().get(RequisitionMonitoredService.class, buildServicePath(name, foreignid, inet, service));
 	}
 
-	@Override
 	public RequisitionCategoryCollection getCategories(String foreignid,
 			String name) {
 		return getJerseyClient().get(RequisitionCategoryCollection.class, buildCategoriesPath(name, foreignid));
 	}
 
-	@Override
 	public RequisitionCategory getCategory(String foreignid, String name,
 			String category) {
 		return getJerseyClient().get(RequisitionCategory.class, buildCategoryPath(name, foreignid, category));
 	}
 
-	@Override
 	public RequisitionAssetCollection getAssets(String foreignid, String name) {
 		return getJerseyClient().get(RequisitionAssetCollection.class, buildAssetsPath(name, foreignid));
 	}
 
-	@Override
 	public RequisitionAsset getAsset(String foreignid, String name,
 			String assetfieldname) {
 		return getJerseyClient().get(RequisitionAsset.class, buildAssetPath(name, foreignid, assetfieldname));
 	}
 
-	@Override
 	public void add(Requisition requisition) {
 		getJerseyClient().post(requisition, REQUISITIONS_PATH);
 	}
 
-	@Override
 	public void add(String name, RequisitionNode rnode) {
 		getJerseyClient().post(rnode, buildNodesPath(name));
 	}
 
-	@Override
 	public void add(String name, String foreignid, RequisitionInterface rinterface) {
 		getJerseyClient().post(rinterface, buildInterfacesPath(name,foreignid));
 	}
 
-	@Override
 	public void add(String name, String foreignid, String inet, RequisitionMonitoredService rservice) {
 		getJerseyClient().post(rservice, buildServicesPath(name,foreignid,inet));
 	}
 
-	@Override
 	public void add(String name, String foreignid, RequisitionCategory rcategory) {
 		getJerseyClient().post(rcategory, buildCategoriesPath(name,foreignid));
 
 	}
 
-	@Override
 	public void add(String name, String foreignid, RequisitionAsset rasset) {
 		getJerseyClient().post(rasset, buildAssetsPath(name,foreignid));
 	}
 
-	@Override
 	public void sync(String name) {
 		MultivaluedMap<String, String> mvm = new MultivaluedMapImpl();
 		getJerseyClient().put(mvm, buildImportPath(name));
 	}
 
-	@Override
 	public void syncRescanExistingFalse(String name) {
 		MultivaluedMap<String, String> mvm = new MultivaluedMapImpl();
 		mvm.add("rescanExisting", "false");
 		getJerseyClient().put(mvm, buildImportPath(name));
 	}
 
-	@Override
 	public void syncDbOnly(String name) {
 		MultivaluedMap<String, String> mvm = new MultivaluedMapImpl();
 		mvm.add("rescanExisting", "dbonly");
 		getJerseyClient().put(mvm, buildImportPath(name));
 	}
 
-	@Override
 	public void delete(String name) {
 		getJerseyClient().delete(buildRequisitionPath(name));
 	}
 
-	@Override
 	public void deleteDeployed(String name) {
 		getJerseyClient().delete(buildRequisitionDeployedPath(name));
 	}
 
-	@Override
 	public void deleteNode(String name, String foreignid) {
 		getJerseyClient().delete(buildNodePath(name, foreignid));
 	}
 
-	@Override
 	public void deleteInterface(String name, String foreignid,
 			String inet) {
 		getJerseyClient().delete(buildInterfacePath(name, foreignid, inet));
 
 	}
 
-	@Override
 	public void deleteService(String name, String foreignid,
 			String inet, String service) {
 		getJerseyClient().delete(buildServicePath(name, foreignid, inet, service));
 	}
 
-	@Override
 	public void deleteCategory(String name, String foreignid,
 			String category) {
 		getJerseyClient().delete(buildCategoryPath(name, foreignid, category));
 	}
 
-	@Override
 	public void deleteAsset(String name, String foreignid,
 			RequisitionAsset assetfieldname) {
 		getJerseyClient().delete(buildAssetPath(name, foreignid, assetfieldname.getName()));
 	}
 
-	@Override
 	public void update(String foreignSource, String foreignid,
 			MultivaluedMap<String, String> map) {
 		getJerseyClient().put(map, buildNodePath(foreignSource, foreignid));
 	}
 	
-	@Override
 	public void update(String foreignSource, String foreignid, String ipaddress,
 			MultivaluedMap<String, String> map) {
 		getJerseyClient().put(map, buildInterfacePath(foreignSource, foreignid,ipaddress));

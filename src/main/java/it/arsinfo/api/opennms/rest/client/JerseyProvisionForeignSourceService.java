@@ -1,4 +1,4 @@
-package org.opennms.rest.client;
+package it.arsinfo.api.opennms.rest.client;
 
 import org.opennms.netmgt.provision.persist.foreignsource.DetectorCollection;
 import org.opennms.netmgt.provision.persist.foreignsource.DetectorWrapper;
@@ -6,7 +6,6 @@ import org.opennms.netmgt.provision.persist.foreignsource.ForeignSource;
 import org.opennms.netmgt.provision.persist.foreignsource.ForeignSourceCollection;
 import org.opennms.netmgt.provision.persist.foreignsource.PolicyCollection;
 import org.opennms.netmgt.provision.persist.foreignsource.PolicyWrapper;
-import org.opennms.rest.client.ProvisionForeignSourceService;
 
 public class JerseyProvisionForeignSourceService extends JerseyAbstractService
 		implements ProvisionForeignSourceService {
@@ -41,82 +40,66 @@ public class JerseyProvisionForeignSourceService extends JerseyAbstractService
 	
 	
 
-	@Override
 	public ForeignSourceCollection getAll() {
 		return getJerseyClient().get(ForeignSourceCollection.class, FOREIGNSOURCE_PATH);
 	}
 
-	@Override
 	public int count() {
 		return Integer.getInteger(getJerseyClient().get(FOREIGNSOURCE_COUNT_PATH));
 	}
 
-	@Override
 	public ForeignSourceCollection getAllDefault() {
 		return getJerseyClient().get(ForeignSourceCollection.class, FOREIGNSOURCE_DEFAULT_PATH);
 	}
 
-	@Override
 	public ForeignSourceCollection getAllDeployed() {
 		return getJerseyClient().get(ForeignSourceCollection.class, FOREIGNSOURCE_DEPLOYED_PATH);
 	}
 
-	@Override
 	public int countDeployed() {
 		return Integer.getInteger(getJerseyClient().get(FOREIGNSOURCE_DEPLOYED_COUNT_PATH));
 	}
 
-	@Override
 	public ForeignSource get(String foreignSource) {
 		return getJerseyClient().get(ForeignSource.class, FOREIGNSOURCE_DEFAULT_PATH);
 	}
 
-	@Override
 	public DetectorCollection getDetectors(String name) {
 		return getJerseyClient().get(DetectorCollection.class, buildForeignSourceDetectorsPath(name));
 	}
 
-	@Override
 	public DetectorWrapper getDetector(String name, String detectorname) {
 		return getJerseyClient().get(DetectorWrapper.class, buildForeignSourceDetectorPath(name, detectorname));
 	}
 
-	@Override
 	public PolicyCollection getpolicies(String name) {
 		return getJerseyClient().get(PolicyCollection.class, buildForeignSourcePoliciesPath(name));
 	}
 
-	@Override
 	public PolicyWrapper getPolicy(String name, String policyname) {
 		return getJerseyClient().get(PolicyWrapper.class, buildForeignSourcePolicyPath(name, policyname));
 	}
 
-	@Override
 	public void add(ForeignSource foreignSource) {
 		getJerseyClient().post(foreignSource, buildForeignSourcePath(foreignSource.getName()));
 	}
 
-	@Override
 	public void addOrReplace(String name, DetectorWrapper detector) {
 		getJerseyClient().post(detector, buildForeignSourceDetectorsPath(name));
 	}
 
-	@Override
 	public void addOrReplace(String name, PolicyWrapper policy) {
 		getJerseyClient().post(policy, buildForeignSourcePoliciesPath(name));
 	}
 
-	@Override
 	public void deleteForeignSource(String foreignSource) {
 		getJerseyClient().delete(buildForeignSourcePath(foreignSource));
 	}
 
-	@Override
 	public void deleteDetector(String name, String detectorname) {
 		getJerseyClient().delete(buildForeignSourceDetectorPath(name, detectorname));
 	}
 
-	@Override
 	public void deletePolicy(String name, String policyname) {
 		getJerseyClient().delete(buildForeignSourcePolicyPath(name, policyname));
 	}

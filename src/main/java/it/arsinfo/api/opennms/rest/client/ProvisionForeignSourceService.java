@@ -1,4 +1,4 @@
-package org.opennms.rest.client;
+package it.arsinfo.api.opennms.rest.client;
 
 
 import org.opennms.netmgt.provision.persist.foreignsource.DetectorCollection;

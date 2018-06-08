@@ -26,7 +26,7 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.rest.client;
+package it.arsinfo.api.opennms.rest.client;
 
 import org.junit.After;
 import org.junit.Before;
@@ -44,7 +44,7 @@ public class SnmpInfoServiceTest {
     public void setUp() throws Exception {
         m_snmpinfoservice = new JerseySnmpInfoService();
         JerseyClientImpl jerseyClient = new JerseyClientImpl(
-                                                         "http://demo.arsinfo.it:8980/opennms/rest/","admin","admin");
+                                                         "http://www.arsinfo.it:8980/opennms/rest/","admin","admin");
         m_snmpinfoservice.setJerseyClient(jerseyClient);
     }
 
@@ -56,7 +56,7 @@ public class SnmpInfoServiceTest {
     @Ignore
     public void testGet() throws Exception {
     	SnmpInfo snmp = m_snmpinfoservice.get("172.25.140.97");
-    	assertEquals("ma14na165ge", snmp.getReadCommunity());
+    	assertEquals("azz", snmp.getReadCommunity());
     	assertEquals(161, snmp.getPort().intValue());
     	assertEquals(1, snmp.getRetries().intValue());
     	assertEquals(5000, snmp.getTimeout().intValue());

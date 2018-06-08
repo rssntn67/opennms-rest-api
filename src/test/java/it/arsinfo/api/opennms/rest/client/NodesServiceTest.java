@@ -26,7 +26,7 @@
  *     http://www.opennms.com/
  *******************************************************************************/
 
-package org.opennms.rest.client;
+package it.arsinfo.api.opennms.rest.client;
 
 import javax.ws.rs.core.MultivaluedMap;
 
@@ -36,8 +36,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsNodeList;
-import org.opennms.rest.client.model.OnmsIpInterface;
-import org.opennms.rest.client.model.OnmsIpInterfaceList;
+import org.opennms.netmgt.model.OnmsIpInterface;
+import org.opennms.netmgt.model.OnmsIpInterfaceList;
 
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 
@@ -51,7 +51,7 @@ public class NodesServiceTest {
     public void setUp() throws Exception {
         m_nodesservice = new JerseyNodesService();
         JerseyClientImpl jerseyClient = new JerseyClientImpl(
-                                                         "http://demo.arsinfo.it:8980/opennms/rest/","admin","admin");
+                                                         "http://www.arsinfo.it:8980/opennms/rest/","admin","admin");
         m_nodesservice.setJerseyClient(jerseyClient);
     }
 
@@ -74,8 +74,8 @@ public class NodesServiceTest {
     @Ignore
     public void testGetNodesByNodelabel() throws Exception {
     	MultivaluedMap<String, String> queryParams = new MultivaluedMapImpl();
-    	queryParams.add("label", "TrentoNord-A9K-PE01.bb.tnnet.it");
-    	queryParams.add("foreignSource", "UpdateTN");
+    	queryParams.add("label", "www.opennms.org");
+    	queryParams.add("foreignSource", "OpenNMS");
         OnmsNodeList nodeslist = m_nodesservice.find(queryParams);
         assertEquals(1, nodeslist.getCount().intValue());
         assertEquals(1,nodeslist.getTotalCount().intValue());
@@ -88,9 +88,9 @@ public class NodesServiceTest {
     public void testGetNode() throws Exception {
         OnmsNode node = m_nodesservice.get(20);
         assertEquals(20, node.getId().intValue());
-        assertEquals("TrentoNord-A9K-PE01.bb.tnnet.it", node.getLabel());
-        assertEquals("tnnord", node.getForeignId());
-        assertEquals("UpdateTN", node.getForeignSource());
+        assertEquals("www.opennms.org", node.getLabel());
+        assertEquals("opennms", node.getForeignId());
+        assertEquals("OpenNMS", node.getForeignSource());
     }
 
     @Test
@@ -100,8 +100,9 @@ public class NodesServiceTest {
     	assertEquals(86, ips.size());
     	for (OnmsIpInterface ip: ips.getIpInterfaces()) {
     		System.out.println(ip.getIpAddress());
+    		System.out.println(ip.getNetMask());
     		if (ip.getSnmpInterface() != null)
-    			System.out.println(ip.getSnmpInterface().getNetMask());
+    			System.out.println(ip.getSnmpInterface().getIfSpeed());
     		System.out.println(ip.getIpHostName());
     	}
     }

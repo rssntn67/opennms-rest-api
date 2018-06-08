@@ -1,12 +1,12 @@
-package org.opennms.rest.client;
+package it.arsinfo.api.opennms.rest.client;
 
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.opennms.netmgt.model.OnmsAssetRecord;
 import org.opennms.netmgt.model.OnmsCategory;
 import org.opennms.netmgt.model.OnmsCategoryCollection;
-import org.opennms.rest.client.model.OnmsIpInterface;
-import org.opennms.rest.client.model.OnmsIpInterfaceList;
+import org.opennms.netmgt.model.OnmsIpInterface;
+import org.opennms.netmgt.model.OnmsIpInterfaceList;
 import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.OnmsMonitoredServiceList;
 import org.opennms.netmgt.model.OnmsNode;
@@ -75,70 +75,57 @@ public class JerseyNodesService extends JerseyAbstractService implements NodesSe
         m_jerseyClient = jerseyClient;
     }
 
-	@Override
     public OnmsNodeList getAll() {
     	MultivaluedMap<String, String> queryParams = setLimit(0);
         return getJerseyClient().get(OnmsNodeList.class, NODES_PATH,queryParams);                
     }
  
-	@Override
     public OnmsNodeList find(MultivaluedMap<String, String> queryParams) {
         return getJerseyClient().get(OnmsNodeList.class, NODES_PATH,queryParams);                
     }
 
-	@Override
     public OnmsNode get(Integer id) {
         return getJerseyClient().get(OnmsNode.class, buildNodePath(id));
     }
  
 
-	@Override
 	public OnmsNodeList getWithDefaultsQueryParams() {
         return getJerseyClient().get(OnmsNodeList.class, NODES_PATH);                
 	}
 
-	@Override
 	public OnmsIpInterfaceList getIpInterfaces(Integer id) {
 		return getJerseyClient().get(OnmsIpInterfaceList.class, buildIpInterfacePath(id));
 	}
 
-	@Override
 	public OnmsIpInterface getIpInterface(Integer id, String ipaddress) {
 		return getJerseyClient().get(OnmsIpInterface.class, buildIpInterfacePath(id,ipaddress));
 	}
 
-	@Override
 	public OnmsSnmpInterfaceList getSnmpInterfaces(Integer id) {
 		return getJerseyClient().get(OnmsSnmpInterfaceList.class, buildSnmpInterfacePath(id));
 	}
 
-	@Override
 	public OnmsSnmpInterface getSnmpInterface(Integer id, Integer ifindex) {
 		return getJerseyClient().get(OnmsSnmpInterface.class, buildSnmpInterfacePath(id,ifindex));
 	}
 
-	@Override
 	public OnmsAssetRecord getAssetRecord(Integer id) {
 		return getJerseyClient().get(OnmsAssetRecord.class, buildAssetRecordPath(id));
 	}
 
-	@Override
 	public OnmsCategoryCollection getCategories(Integer id) {
 		return getJerseyClient().get(OnmsCategoryCollection.class, buildCategoryPath(id));
 	}
 
-	@Override
 	public OnmsCategory getCategory(Integer id, String category) {
 		return getJerseyClient().get(OnmsCategory.class, buildCategoryPath(id,category));
 	}
 
-	@Override
 	public OnmsMonitoredServiceList getMonitoredServices(Integer id,
 			String ipaddress) {
 		return getJerseyClient().get(OnmsMonitoredServiceList.class, buildServicePath(id, ipaddress));
 	}
 
-	@Override
 	public OnmsMonitoredService getMonitoredService(Integer id,
 			String ipaddress, String service) {
 		return getJerseyClient().get(OnmsMonitoredService.class, buildServicePath(id, ipaddress,service));

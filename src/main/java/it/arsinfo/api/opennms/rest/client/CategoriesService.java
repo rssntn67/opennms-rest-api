@@ -1,4 +1,4 @@
-package org.opennms.rest.client;
+package it.arsinfo.api.opennms.rest.client;
 
 
 import org.opennms.netmgt.model.OnmsCategory;
@@ -6,9 +6,9 @@ import org.opennms.netmgt.model.OnmsCategoryCollection;
 
 public interface CategoriesService extends RestFilterService{
     
-    public OnmsCategoryCollection getAll();
+    OnmsCategoryCollection getAll();
     
-    public OnmsCategory getCategory(String categoryName);
+    OnmsCategory getCategory(String categoryName);
     
-    public void delete(String categoryName);
+    void delete(String categoryName);
 }

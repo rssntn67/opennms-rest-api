@@ -1,4 +1,4 @@
-package org.opennms.rest.client;
+package it.arsinfo.api.opennms.rest.client;
 
 import javax.ws.rs.core.MultivaluedMap;
 
@@ -24,12 +24,10 @@ public class JerseySnmpInfoService extends JerseyAbstractService implements Snmp
     	return SNMP_REST_PATH+ip;
     }
 
-    @Override
 	public SnmpInfo get(String ip) {
 		return getJerseyClient().get(SnmpInfo.class, getPath(ip));
 	}
 
-	@Override
 	public void set(String ip, SnmpInfo snmpInfo) {
 		getJerseyClient().put(getMap(snmpInfo), getPath(ip));
 	}
