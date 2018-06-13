@@ -49,10 +49,8 @@ public class NodesServiceTest {
     
     @Before
     public void setUp() throws Exception {
-        m_nodesservice = new JerseyNodesService();
-        JerseyClientImpl jerseyClient = new JerseyClientImpl(
-                                                         "http://www.arsinfo.it:8980/opennms/rest/","admin","admin");
-        m_nodesservice.setJerseyClient(jerseyClient);
+        m_nodesservice = new JerseyNodesService(new JerseyClientImpl(
+                                                         "http://www.arsinfo.it:8980/opennms/rest/","admin","admin"));
     }
 
     @After

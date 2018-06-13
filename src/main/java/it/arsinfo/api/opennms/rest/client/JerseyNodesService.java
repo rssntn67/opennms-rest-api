@@ -64,15 +64,14 @@ public class JerseyNodesService extends JerseyAbstractService implements NodesSe
 		return buildCategoryPath(id) + "/" + categoryName;
 	}
 
+	public JerseyNodesService(JerseyClientImpl jerseyClient) {
+		m_jerseyClient = jerseyClient;
+	}
 
-    private JerseyClientImpl m_jerseyClient;
+    final private JerseyClientImpl m_jerseyClient;
         
     public JerseyClientImpl getJerseyClient() {
         return m_jerseyClient;
-    }
-
-    public void setJerseyClient(JerseyClientImpl jerseyClient) {
-        m_jerseyClient = jerseyClient;
     }
 
     public OnmsNodeList getAll() {
